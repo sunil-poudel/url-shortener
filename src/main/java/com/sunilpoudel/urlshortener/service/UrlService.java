@@ -4,6 +4,7 @@ import com.sunilpoudel.urlshortener.dto.ShortenUrlRequest;
 import com.sunilpoudel.urlshortener.dto.ShortenUrlResponse;
 import com.sunilpoudel.urlshortener.entity.ShortUrl;
 import com.sunilpoudel.urlshortener.repo.ShortUrlRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,8 @@ import java.util.Random;
 public class UrlService {
 
     private final ShortUrlRepository shortUrlRepository;
+    @Value("${app.base-url}")
+    private String baseUrl;
 
     public UrlService(ShortUrlRepository shortUrlRepository) {
         this.shortUrlRepository = shortUrlRepository;
@@ -33,7 +36,7 @@ public class UrlService {
         ShortUrl shortUrl = new ShortUrl(originalUrl, shortCode);
         shortUrlRepository.save(shortUrl);
 
-        String shortLink = "http://localhost:8080/" + shortCode;
+        String shortLink = baseUrl + shortCode;
 
         return new ShortenUrlResponse(originalUrl, shortCode, shortLink);
     }
