@@ -24,6 +24,9 @@ public class UrlService {
         if (originalUrl == null || originalUrl.isBlank()) {
             throw new RuntimeException("URL cannot be empty");
         }
+        if (!originalUrl.startsWith("http://") && !originalUrl.startsWith("https://")) {
+            originalUrl = "https://" + originalUrl;
+        }
 
         String shortCode = generateUniqueCode();
 
