@@ -1,11 +1,8 @@
-FROM gradle:8.12.1-jdk21 AS build
+FROM eclipse-temurin:21-jdk-alpine AS build
 WORKDIR /app
 COPY . .
-RUN gradle clean build -x test
+RUN ./gradlew clean build -x test
 
-# Stage 2: Run the app
 FROM eclipse-temurin:21-jre-alpine
-
-WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 ENTRYPOINT ["java", "-jar", "app.jar"]
