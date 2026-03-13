@@ -36,7 +36,7 @@ public class UrlService {
         ShortUrl shortUrl = new ShortUrl(originalUrl, shortCode);
         shortUrlRepository.save(shortUrl);
 
-        String shortLink = baseUrl + shortCode;
+        String shortLink = baseUrl +"/" + shortCode;
 
         return new ShortenUrlResponse(originalUrl, shortCode, shortLink);
     }
